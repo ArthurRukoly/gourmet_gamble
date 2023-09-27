@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Receipt</title>
+</head>
+<body>
+<h1>Create a New Receipt</h1>
+<form action="/receipts/create" method="post">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required><br>
+  <label for="rating">Rating (0-5):</label>
+  <input type="number" id="rating" name="rating" step="1" min="0" max="5" required><br>
+  <label for="difficulty">Difficulty (0-5):</label>
+  <input type="number" id="difficulty" name="difficulty" step="1" min="0" max="5" required><br>
+  <div class="form-group">
+    <label for="products">Select Products:</label>
+    <select id="products" name="products" multiple="multiple" class="form-control">
+      <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
+    </select>
+  </div>
+  <input type="submit" value="Create">
+</form>
+</body>
+</html>
