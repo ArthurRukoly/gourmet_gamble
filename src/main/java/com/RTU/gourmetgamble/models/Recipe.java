@@ -22,7 +22,8 @@ public class Recipe {
     private Long id;
     private String name;
     private String category;
-    @Lob
+
+    @Column(columnDefinition="TEXT")
     private String instruction;
     private String pictureLink;
 
