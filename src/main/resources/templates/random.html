@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Random Object</title>
+    <title>Random Recipes</title>
 </head>
 <body>
-<h1>Random Receipt</h1>
-<p>Name: </p>
-<p th:text="${randomObject.name}"></p>
-<p>Image: </p>
-<p><img th:src="${randomObject.pictureLink}" alt="Random Image"></p>
-<p>Category: </p>
-<p th:text="${randomObject.category}"></p>
-<p>Rating: </p>
-<p th:text="${randomObject.getScore()}"></p>
-<p>Instruction: </p>
-<p th:text="${randomObject.instruction}"></p>
-<p> Ingredients: </p>
-<ul>
-    <li th:each="ingredient : ${ingredients}">
-        <span th:text="${ingredient.getName()}">  </span>
+<h1>Random Recipes</h1>
+<ul th:each="recipe, i : ${recipes}">
+    <li>
+        <p>Name: <span th:text="${recipe.name}"></span></p>
+        <p>Image: <img th:src="${recipe.pictureLink}" alt="Recipe Image"></p>
+        <p>Category: <span th:text="${recipe.category}"></span></p>
+        <p>Rating: <span th:text="${recipe.getScore()}"></span></p>
+        <p>Instruction: <span th:text="${recipe.instruction}"></span></p>
+        <p>Ingredients:</p>
+        <ul>
+            <li th:each="ingredient : ${ingredients[i.index]}">
+                <span th:text="${ingredient.getName()}"></span>
+            </li>
+        </ul>
+        <form action="/random" method="post">
+            <input type="hidden" name="receiptId" th:value="${recipe.id}">
+            <label for="rating">Rating (0-5):</label>
+            <input type="number" id="rating" name="rating" step="1" min="0" max="5" required><br>
+            <button type="submit">Update Rating</button>
+        </form>
     </li>
 </ul>
-<form action="/random" method="post">
-    <input type="hidden" name="receiptId" th:value="${randomObject.id}">
-    <label for="rating">Rating (0-5):</label>
-    <input type="number" id="rating" name="rating" step="1" min="0" max="5" required><br>
-    <button type="submit">Update Rating</button>
-</form>
 </body>
 </html>

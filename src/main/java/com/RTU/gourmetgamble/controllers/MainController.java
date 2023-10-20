@@ -75,20 +75,22 @@ public class MainController {
         }
 
         Recipe randomRecipe = null;
-        if (recipes.size() > 0) {
-            randomRecipe = randomServices.getRandomRecipeFromAList(recipes);
-            System.out.println(randomRecipe.getName());
-        } else {
+        if (recipes.size() == 0) {
             System.out.println("no such reciept");
             modelAndView = new ModelAndView("redirect:/notpref");
             return modelAndView;
         }
 
-        List<Long> randomRecipeProductsIDs = recipeProductRepository.findProductIDByRecipeID(randomRecipe.getId());
-        List<Product> ingredients = productServices.getProductsFromIds(randomRecipeProductsIDs);
+        List<List<Product>> allProducts = new ArrayList<>();
 
-        redirectAttributes.addFlashAttribute("ingredients", ingredients);
-        redirectAttributes.addFlashAttribute("randomObject", randomRecipe);
+        for (Recipe recipe: recipes) {
+            allProducts.add(
+                    productServices.getProductsFromIds(recipeProductRepository.findProductIDByRecipeID(recipe.getId()))
+            );
+        }
+
+        redirectAttributes.addFlashAttribute("ingredients", allProducts);
+        redirectAttributes.addFlashAttribute("recipes", recipes);
 
         modelAndView = new ModelAndView("redirect:/pref");
         return modelAndView;
@@ -96,7 +98,7 @@ public class MainController {
 
     @GetMapping("/pref")
     public String pref(Model model) {
-        model.getAttribute("randomObject");
+        model.getAttribute("recipes");
         model.getAttribute("ingredients");
         return "random";
     }
