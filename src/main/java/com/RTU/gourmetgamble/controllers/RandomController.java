@@ -2,9 +2,12 @@ package com.RTU.gourmetgamble.controllers;
 
 import com.RTU.gourmetgamble.models.Product;
 import com.RTU.gourmetgamble.models.Recipe;
+import com.RTU.gourmetgamble.models.RecipeScore;
 import com.RTU.gourmetgamble.repositories.ProductRepository;
 import com.RTU.gourmetgamble.repositories.RecipeProductRepository;
 import com.RTU.gourmetgamble.repositories.RecipeRepository;
+import com.RTU.gourmetgamble.repositories.RecipeScoreRepository;
+import com.RTU.gourmetgamble.services.AuthenticationService;
 import com.RTU.gourmetgamble.services.RandomServices;
 import com.RTU.gourmetgamble.services.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,8 @@ public class RandomController {
     private final ProductRepository productRepository;
     private final RandomServices randomServices;
     private final RecipeService recipeService;
+    private final AuthenticationService authenticationService;
+    private final RecipeScoreRepository recipeScoreRepository;
 
     @GetMapping("/random")
     public String home(Model model) {
@@ -47,14 +52,21 @@ public class RandomController {
         return "random";
     }
     @PostMapping("/random")
-    public String updateRating(@RequestParam("receiptId") Long id, @RequestParam("rating") float rating) {
+    public String updateRating(@RequestParam("receiptId") Long recipeId, @RequestParam("rating") float rating) {
         // Check if the user is authenticated
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated()) {
-            // User is authenticated, process the request
-            Recipe currentRecipe = recipeService.getReceiptById(id);
-            currentRecipe.setRating(currentRecipe.getRating() + rating);
-            currentRecipe.setRatingCount(currentRecipe.getRatingCount() + 1);
+        if (authenticationService.checkIfUserIsAuthorized()) {
+            Long currentUserID = authenticationService.getAutorizedUserId();
+
+
+            RecipeScore newScore = new RecipeScore();
+            newScore.setRecipeId(recipeId);
+            newScore.setUserId(currentUserID);
+            newScore.setRating(rating);
+
+            recipeScoreRepository.save(newScore);
+            Recipe currentRecipe = recipeRepository.findRecipeById(recipeId);
+            recipeService.setScore(currentRecipe);
             recipeRepository.save(currentRecipe);
         } else {
             System.out.println("nelzya");

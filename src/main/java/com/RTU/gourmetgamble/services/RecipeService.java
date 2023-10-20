@@ -3,8 +3,10 @@ package com.RTU.gourmetgamble.services;
 import com.RTU.gourmetgamble.models.Product;
 import com.RTU.gourmetgamble.models.Recipe;
 import com.RTU.gourmetgamble.models.RecipeProduct;
+import com.RTU.gourmetgamble.models.RecipeScore;
 import com.RTU.gourmetgamble.repositories.RecipeProductRepository;
 import com.RTU.gourmetgamble.repositories.RecipeRepository;
+import com.RTU.gourmetgamble.repositories.RecipeScoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
 public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final RecipeProductRepository recipeProductRepository;
-
+    private final RecipeScoreRepository recipeScoreRepository;
 
     public String[] recipeCategories(){
         return new String[]{
@@ -113,5 +115,15 @@ public class RecipeService {
     public Recipe getReceiptById(Long receiptId) {
         // Use the Spring Data JPA repository to retrieve the receipt by ID
         return recipeRepository.findById(receiptId).orElse(null);
+    }
+
+    public void setScore(Recipe recipe){
+        List<RecipeScore> scoreList = recipeScoreRepository.findAllScoreOfRecipe(recipe.getId());
+        System.out.println(scoreList.size());
+        float scoreSum = 0;
+        for (RecipeScore r: scoreList) {
+            scoreSum += r.getRating();
+        }
+        recipe.setScore(scoreSum / scoreList.size());
     }
 }
