@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Scores</title>
+</head>
+<body>
+<h1>User Scores</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Recipe Name</th>
+        <th>Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate through the lists and display recipe names and scores -->
+    <tr th:each="recipe, score : ${recipeNames}">
+        <td th:text="${recipe.getName()}">Recipe Name</td>
+        <td th:text="${scores[score.index]}">Score</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

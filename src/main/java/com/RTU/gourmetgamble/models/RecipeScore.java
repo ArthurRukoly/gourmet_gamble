@@ -20,5 +20,5 @@ public class RecipeScore {
     private Float rating;
 
     private Long recipeId;
-    private Long UserId;
+    private Long userId;
 }

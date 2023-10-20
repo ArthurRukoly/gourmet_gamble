@@ -52,8 +52,6 @@ public class UserController {
         String errorEmailMessage = "";
         String errorPasMessage = "";
         String errorNameMessage = "";
-        String errorFileMessage = "";
-        String errorEmptyFileMessage = "";
 
         //parameter to indicate errors
         boolean mistake = false;
