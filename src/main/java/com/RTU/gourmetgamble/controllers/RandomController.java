@@ -8,6 +8,9 @@ import com.RTU.gourmetgamble.repositories.RecipeRepository;
 import com.RTU.gourmetgamble.services.RandomServices;
 import com.RTU.gourmetgamble.services.RecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,14 +46,20 @@ public class RandomController {
         model.addAttribute("randomObject", randomRecipe);
         return "random";
     }
-
     @PostMapping("/random")
-    public String updateRating(@RequestParam("receiptId") Long id,
-                               @RequestParam("rating") float rating){
-        Recipe currentRecipe = recipeService.getReceiptById(id);
-        currentRecipe.setRating(currentRecipe.getRating() + rating);
-        currentRecipe.setRatingCount(currentRecipe.getRatingCount()+1);
-        recipeRepository.save(currentRecipe);
+    public String updateRating(@RequestParam("receiptId") Long id, @RequestParam("rating") float rating) {
+        // Check if the user is authenticated
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated()) {
+            // User is authenticated, process the request
+            Recipe currentRecipe = recipeService.getReceiptById(id);
+            currentRecipe.setRating(currentRecipe.getRating() + rating);
+            currentRecipe.setRatingCount(currentRecipe.getRatingCount() + 1);
+            recipeRepository.save(currentRecipe);
+        } else {
+            System.out.println("nelzya");
+        }
+
         return "redirect:/random";
     }
 }

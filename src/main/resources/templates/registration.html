@@ -1,30 +1,191 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          background: linear-gradient(to bottom, #f4f7fa, #2e2f54);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+        .signup-container {
+          width: 300px;
+          padding: 20px;
+          background: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+          opacity: 0;
+          transform: translateY(20px);
+          animation: slide-up 0.5s forwards;
+        }
+        @keyframes slide-up {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .signup-container h1 {
+          margin: 0 0 20px;
+          text-align: center;
+          color: #2e2f54;
+          letter-spacing: 2px;
+        }
+        .form-group {
+          margin-bottom: 20px;
+        }
+        label {
+          display: block;
+          margin-bottom: 5px;
+          color: #333333;
+        }
+        input[type="text"], input[type="password"] {
+          width: 100%;
+          padding: 10px;
+          border: none;
+          border-bottom: 2px solid #2e2f54;
+          background: transparent;
+          transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+          border-color: #48a5e3;
+        }
+        .error {
+          border-color: #e74c3c !important;
+        }
+        .success {
+          border-color: #2ecc71 !important;
+        }
+        .btn {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          background-color: #2e2f54;
+          color: #ffffff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          font-size: 18px;
+          padding: 12px;
+        }
+        .btn:hover {
+          background-color: #2186c7;
+        }
+        .error-message {
+          margin-top: 5px;
+          font-size: 12px;
+          color: #e74c3c;
+        }
+        .login-link {
+          text-align: center;
+          margin-top: 10px;
+          font-size: 14px;
+          color: #333333;
+        }
+        .login-link a {
+          color: #1811d2;
+          text-decoration: none;
+          transition: color 0.3s;
+        }
+        .login-link a:hover {
+          color: #2186c7;
+        }
+        .in-picture input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #2e2f54;
+            background: transparent;
+            transition: border-color 0.3s;
+        }
+
+        .in-picture input[type="file"]:focus {
+            border-color: #48a5e3;
+        }
+
+        .in-picture label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+
+        .in-picture label::before {
+            content: "Choose a profile picture";
+            font-size: 14px;
+            display: inline-block;
+            background-color: #8182DA;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .in-picture input[type="file"] {
+            display: none;
+        }
+
+        .in-picture label:hover::before {
+            background-color: #2186c7;
+        }
+
+    </style>
 </head>
+
 <body>
+<div class="signup-container">
+    <h1>Sign up</h1>
+    <form id="signup-form" action="/user/registration" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="error-message" style="text-align: center;">
+            <p th:text="${errorNameMessage}" style="color: red;"></p>
 
-<h2>User Registration</h2>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="error-message" style="text-align: center;">
+            <p th:text="${errorConfirmMessage}" style="color: red;"></p>
 
-<form id="registrationForm" action="/register" method="post">
-    <label for="nickname">Username:</label>
-    <input type="text" id="nickname" name="nickname" required>
+        </div>
+        <div class="error-message" style="text-align: center;">
+            <p th:text="${errorEmailMessage}" style="color: red;"></p>
 
-    <br>
+        </div>
+        <div class="form-group">
+            <label for="password">Password (at least 8 - 30 symbols)</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <div class="error-message" style="text-align: center;">
+            <p th:text="${errorMessage}" style="color: red;"></p>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+        </div>
+        <div class="error-message" style="text-align: center;">
+            <p th:text="${errorPasMessage}" style="color: red;"></p>
 
-    <br>
+        </div>
+        <div class="error-message" style="text-align: center;">
+            <p th:text="${errorEmptyFileMessage}" style="color: red;"></p>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-
-    <br>
-
-    <button type="submit">Register</button>
-</form>
+        </div>
+        <button class="btn" type="submit">Create</button>
+    </form>
+    <p class="login-link">Already a member? <a href="/user/login">Log in</a></p>
+</div>
 
 </body>
 </html>

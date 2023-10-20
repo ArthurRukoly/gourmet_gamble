@@ -94,6 +94,21 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.28</version> <!-- Use the version compatible with your MySQL server -->
 		</dependency>
+        <dependency>
+            <groupId>ru.spb.devclub</groupId>
+            <artifactId>delegating-spring-request-context</artifactId>
+            <version>1.0</version>
+        </dependency>
+		<dependency>
+			<groupId>ru.spb.devclub</groupId>
+			<artifactId>delegating-spring-request-context</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ru.spb.devclub</groupId>
+			<artifactId>delegating-spring-request-context</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

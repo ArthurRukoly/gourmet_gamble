@@ -24,13 +24,14 @@ public class User implements UserDetails {
     private String nickname;
     private String email;
     private String password;
+    private boolean active;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return null;
     }
 
     @Override

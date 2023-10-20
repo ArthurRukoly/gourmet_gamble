@@ -96,7 +96,6 @@ public class RecipeService {
         if (selectedProducts.length() > 2) {
             recipes = getRecipeByProductPreferences(productsIds);
         } else {
-            System.out.println("yo");
             recipes = recipeRepository.findAll();
         }
         return recipes;
