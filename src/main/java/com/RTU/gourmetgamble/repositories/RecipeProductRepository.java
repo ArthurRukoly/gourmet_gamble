@@ -17,4 +17,7 @@ public interface RecipeProductRepository extends JpaRepository<RecipeProduct, Lo
     @Query("SELECT rp FROM RecipeProduct rp WHERE rp.productId = :id")
     List<RecipeProduct> findRecipesByPreferences(@Param("id") Long id);
 
+    @Query("SELECT rp FROM RecipeProduct rp WHERE rp.productId <> :id")
+    List<RecipeProduct> findRecipesByNegativePreferences(@Param("id") Long id);
+
 }

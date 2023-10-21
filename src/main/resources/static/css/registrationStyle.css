@@ -1,0 +1,118 @@
+:root {
+  --primary-color: #193d3b;
+  --primary-color-dark: #0b2222;
+  --secondary-color: #e4e1b6;
+  --secondary-color-dark: #7b7a65;
+  --background-color: #cd5b43;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, var(--background-color), #3c0505);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: var(--secondary-color);
+}
+
+.signup-container {
+  width: 300px;
+  padding: 20px;
+  background: var(--primary-color);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slide-up 0.5s forwards;
+}
+
+@keyframes slide-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-container h1 {
+  margin: 0 0 20px;
+  text-align: center;
+  color: var(--secondary-color);
+  letter-spacing: 2px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 93%;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid var(--primary-color-dark);
+  background: transparent;
+
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: var(--background-color);
+}
+
+.error {
+  border-color: var(--background-color) !important;
+}
+
+.success {
+  border-color: #2ecc71 !important;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--background-color);
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--secondary-color-dark);
+}
+
+.signup-link a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.signup-link a:hover {
+  color: var(--background-color);
+}
+
+.login-link a {
+  color: var(--background-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}

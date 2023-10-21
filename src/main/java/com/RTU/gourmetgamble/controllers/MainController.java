@@ -35,7 +35,7 @@ public class MainController {
 //    private final RecipeAPI r;
 //    private final ProductServices productServices;
 
-    @GetMapping("/")
+    @GetMapping("/main")
     public String home(Model model) {
 //        recipeService.getRecipeByCategory("Beef");
 //        List<Long> list = new ArrayList<>();
@@ -61,20 +61,41 @@ public class MainController {
 
     @PostMapping("/submitSelectedProducts")
     @ResponseBody
-    public ModelAndView submitSelectedProducts(@RequestParam("selectedProducts") String selectedProducts,
-                                               @RequestParam("foodCategory") String foodCategory,
+    public ModelAndView submitSelectedProducts(@RequestParam("selectedProducts") String PrefSelectedProducts,
+                                               @RequestParam("foodCategory") String PrefFoodCategory,
+                                               @RequestParam("notPrefFoodCategory") String NotPrefFoodCategory,
+                                               @RequestParam("notPrefSelectedProducts") String NotPrefSelectedProducts,
                                                RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView;
+        System.out.println(PrefSelectedProducts);
+        System.out.println(NotPrefSelectedProducts);
+        System.out.println(NotPrefSelectedProducts.length());
 
-        String[] productNames = productServices.splitStringWithCommasAndPreserveQuotes(selectedProducts);
+        String[] productNames = productServices.splitStringWithCommasAndPreserveQuotes(PrefSelectedProducts);
         List<Long> productsIds = productServices.getProductsIds(productNames);
-        List<Recipe> recipes = recipeService.getRecipeByProductPreferencesInListForm(selectedProducts, productsIds);
-
-        if(!Objects.equals(foodCategory, "None")){
-            recipes = recipeService.selectByCategory(recipes, foodCategory);
+        List<Recipe> recipes = recipeService.getRecipeByProductPreferencesInListForm(PrefSelectedProducts, productsIds);
+        for (Recipe r: recipes) {
+            System.out.println(r.getName());
+        }
+        System.out.println("-----------");
+        String[] NotPrefproductNames = productServices.splitStringWithCommasAndPreserveQuotes(NotPrefSelectedProducts);
+        List<Long> NotPrefproductsIds = productServices.getProductsIds(NotPrefproductNames);
+        List<Recipe> NotPrefrecipes = new ArrayList<>();
+        System.out.println(!NotPrefproductNames[0].equals("[]"));
+        if (!NotPrefproductNames[0].equals("[]")) {
+            NotPrefrecipes = recipeService.getRecipeByProductPreferencesInListForm(NotPrefSelectedProducts, NotPrefproductsIds);
+            recipes.removeAll(NotPrefrecipes);
+        }
+        for (Recipe r: NotPrefrecipes) {
+            System.out.println(r.getName());
         }
 
-        Recipe randomRecipe = null;
+
+
+        if(!Objects.equals(PrefFoodCategory, "None")){
+            recipes = recipeService.selectByCategory(recipes, PrefFoodCategory);
+        }
+
         if (recipes.size() == 0) {
             System.out.println("no such reciept");
             modelAndView = new ModelAndView("redirect:/notpref");
@@ -82,12 +103,7 @@ public class MainController {
         }
 
         List<List<Product>> allProducts = new ArrayList<>();
-
-        for (Recipe recipe: recipes) {
-            allProducts.add(
-                    productServices.getProductsFromIds(recipeProductRepository.findProductIDByRecipeID(recipe.getId()))
-            );
-        }
+        for (Recipe recipe: recipes) {allProducts.add(productServices.getProductsFromIds(recipeProductRepository.findProductIDByRecipeID(recipe.getId())));}
 
         redirectAttributes.addFlashAttribute("ingredients", allProducts);
         redirectAttributes.addFlashAttribute("recipes", recipes);

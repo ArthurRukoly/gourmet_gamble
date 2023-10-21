@@ -1,0 +1,149 @@
+:root {
+  --primary-color: #193d3b;
+  --primary-color-dark: #0b2222;
+  --secondary-color: #e4e1b6;
+  --secondary-color-dark: #7b7a65;
+  --background-color: #cd5b43;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(to bottom, var(--background-color), #3c0505);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 100%;
+  font-family: "Your Chosen Font", sans-serif;  
+}
+
+.category {
+  margin-bottom: 0.2rem;
+}
+
+.ingredients{
+  margin-bottom: 1rem;
+}
+
+img {
+  width: 90%;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin: 1vh 0 1vh 0 ;
+}
+
+h1 {
+  font-family: "Brush Script MT";
+  font-size: 3rem;
+}
+
+#recipeRating{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.star-rating{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--background-color);
+}
+.container {
+  border-radius: 25px;
+  margin: 5% 10% 5% 10%;
+  padding: 30px;
+  color: var(--secondary-color);
+  width: 70vh;
+  background-color: var(--primary-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.3);
+
+}
+
+ol {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex; /* Center the content horizontally */
+  flex-direction: column; /* Set content as column */
+  align-items: center; /* Center vertically */
+  text-align: center; /* Center text horizontally */
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Center the text within each list item */
+li p {
+  margin: 0;
+}
+
+/* Center the content inside the recipe instructions */
+.recipe-item p span {
+  text-align: center; /* Center text horizontally */
+  margin-bottom: 10px; /* Add margin between spans */
+}
+
+input[type="text"],
+select {
+  width: 80%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: var(--primary-color-dark);
+  color: var(--background-color);
+}
+
+.list {
+  color: var(--background-color);
+}
+
+.list button {
+  background-color: var(--background-color);
+  color: var(--secondary-color);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+/* Style the buttons */
+button {
+  margin: 2px 0px 2px 0;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 3, 0.5);
+}
+
+/* Style the select elements specifically */
+select {
+  background-color: var(--primary-color-dark);
+  color: var(--background-color);
+}
+
+/* Hover effect for buttons */
+button:hover {
+  background-color: var(--background-color);
+}
+
+.button, button {
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.arrows button{
+  font-size: 2rem;
+  padding: 1.15rem;
+}

@@ -1,0 +1,91 @@
+:root {
+  --primary-color: #193d3b;
+  --primary-color-dark: #0b2222;
+  --secondary-color: #E4e1b6;
+  --secondary-color-dark: #7b7a65;
+  --background-color: #cd5b43;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(to bottom, var(--background-color), #3c0505);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Your Chosen Font', sans-serif;
+}
+
+
+.container {
+  border-radius: 25px;
+  margin: 20px;
+  padding: 30px;
+  color: var(--secondary-color);
+  width: 500px;
+  background-color: var(--primary-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+input[type="text"],
+select {
+  width: 80%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: var(--primary-color-dark); /* Removed extra semicolon here */
+  color: var(--background-color);
+}
+
+.list {
+  color: var(--background-color);
+}
+
+.list button {
+  background-color: var(--background-color);
+  color: var(--secondary-color);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Style the buttons */
+button {
+  margin: 2px 0px 2px 0;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 3, 0.5);
+}
+
+/* Style the select elements specifically */
+select {
+  background-color: var(--primary-color-dark);
+  color: var(--background-color);
+}
+
+/* Hover effect for buttons */
+button:hover {
+  background-color: var(--background-color);
+}
+
+button {
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
