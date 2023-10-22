@@ -1,0 +1,70 @@
+:root {
+  --primary-color: #193d3b;
+  --primary-color-dark: #0b2222;
+  --secondary-color: #E4e1b6;
+  --secondary-color-dark: #7b7a65;
+  --background-color: #cd5b43;
+}
+
+body {
+  background: linear-gradient(to bottom, var(--secondary-color), #cd5b43);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Style the buttons */
+button {
+  margin: 2px 0px 2px 0;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2vw;
+  width: 15vw;
+  box-shadow: 0 0 10px rgba(0, 0, 3, 0.5);
+}
+
+/* Hover effect for buttons */
+button:hover {
+  background-color: var(--background-color);
+}
+
+
+.button,
+button {
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+/* Define the animation */
+@keyframes moveAndRotate {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(2.5px, -2.5px) rotate(5deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  75% {
+    transform: translate(-2.5px, 2.5px) rotate(-5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+/* Apply the animation to the image */
+#animatedImage {
+  animation: moveAndRotate 4s linear infinite; /* 4s duration, linear timing, infinite loop */
+}
+
+img {
+  margin-bottom: -1vh;
+  height: 70vh;
+}

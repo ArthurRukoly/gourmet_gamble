@@ -10,6 +10,25 @@
   margin: 0;
 }
 
+#redirect-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+button {
+  margin: 2px 0px 2px 0;
+  padding: 10px 10px 10px 10px;
+  background-color: #193d3b;
+  color: #E4e1b6;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 5vw;
+  box-shadow: 0 0 10px rgba(0, 0, 3, 0.5);
+}
+
 body {
   background: linear-gradient(to bottom, var(--background-color), #3c0505);
   display: flex;
@@ -29,6 +48,7 @@ body {
   width: 500px;
   background-color: var(--primary-color);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
 }
 
 input[type="text"],
@@ -39,8 +59,10 @@ select {
   border: 0;
   border-radius: 5px;
   font-size: 16px;
-  background-color: var(--primary-color-dark); /* Removed extra semicolon here */
+  background-color: var(--primary-color-dark);
+  ;
   color: var(--background-color);
+
 }
 
 .list {
@@ -86,6 +108,18 @@ button:hover {
   background-color: var(--background-color);
 }
 
+.menuButton{
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  width: 4rem;
+}
+#extraButtons {
+  display: flex;
+  flex-direction: column; /* Display as a column */
+  align-items: flex-start; /* Align buttons to the left */
+}
+
+.button,
 button {
   transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }

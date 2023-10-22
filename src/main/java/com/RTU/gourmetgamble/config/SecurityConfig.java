@@ -38,7 +38,7 @@ public class SecurityConfig{
                 )
                 .logout(logout -> logout
                         .permitAll()
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/index")
                 )
                 .cors().and().csrf().disable()
                 .build();

@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link type="text/css" th:href = "@{/css/fillStyle.css}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e89c536697.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
+    <div id="redirect-button">
+        <a href="/user/login"><button class="menuButton" id="hoverButton"><i id="profile" class="fa-solid fa-user"></i></button></a>
+        <div id="extraButtons">
+            <a href="/user/scores"><button class="menuButton" id="button1"><i class="fa-solid fa-star"></i></button></a>
+            <a href="/logout"><button class="menuButton" id="button2"><i class="fa-solid fa-right-from-bracket"></i></button></a>
+        </div>
+    </div>
     <div class="container">
         <p>Selected Products you would like to see:</p>
         <input type="text" id="productName" onkeyup="showSuggestions1()">
@@ -80,6 +90,7 @@
 
 <script th:inline="javascript">
         var productList = /*[[${productList}]]*/ [];
+        var isAuthorized = /*[[${isAuthorized}]]*/ false;
 </script>
 
 <script>
@@ -176,6 +187,34 @@ function updateSelectedProductsList(isPreferred) {
     }
 }
 
+
+if (isAuthorized) {
+    $(document).ready(function () {
+      document.getElementById("profile").className = "fa-solid fa-arrow-down";
+      // Hide the extra buttons initially
+      $("#extraButtons").hide();
+
+      // When you hover over the hoverButton, slide down the extraButtons
+      $("#hoverButton").hover(
+        function () {
+          document.getElementById("profile").className = "fa-solid fa-arrow-up";
+          $("#extraButtons").slideDown();
+        }
+      );
+
+      // Handle mouseleave event for the container #extraButtons to slide them up
+      $("#extraButtons").mouseleave(function () {
+        document.getElementById("profile").className = "fa-solid fa-arrow-down";
+        $("#extraButtons").slideUp();
+      });
+    });
+  } else {
+    document.getElementById("profile").className = "fa-solid fa-right-to-bracket";
+    $(document).ready(function () {
+      // Hide the extra buttons initially
+      $("#extraButtons").hide();
+    });
+  }
 
     // Update the hidden input field with the selectedProducts array
     function updateHiddenInput() {

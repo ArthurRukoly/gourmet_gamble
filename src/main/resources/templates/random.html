@@ -8,32 +8,31 @@
 
 </head>
 <body>
-<h1>Random Recipes</h1>
-<ul th:each="recipe, i : ${recipes}" class="container">
+<ul class="container">
     <li class="recipe-item" >
-        <p><span id="recipeName" th:text="${recipe.name}"></span></p>
-        <p><img th:src="${recipe.pictureLink}" alt="Recipe Image"></p>
-        <p class="rating-container" id="recipeRating"><span th:text="${recipe.getScore()}"></span></p>
-        <p class="category">Category: <span th:text="${recipe.category}"></span></p>
+        <h1><span id="recipeName">Nazvanije recepta</span></h1>
+        <p><img id="recipeImage" src="https://www.themealdb.com/images/media/meals/c7lzrl1683208757.jpg" alt="Random Image"></p>
+        <div class="rating-container" id="recipeRating"></div>
+        <p class="category">Category: <span id="recipeCategory">Categorija</span></p>
         <button id="toggleInstructionButton">Toggle Instruction</button>
-        <p>Instruction: <span th:text="${recipe.instruction}"></span></p>
-        <p>Ingredients:</p>
-        <ul>
-            <li th:each="ingredient : ${ingredients[i.index]}">
-                <span th:text="${ingredient.getName()}"></span>
-            </li>
-        </ul>
+        <p><span id="recipeInstruction" style="display: none"></span></p>
+        <div class="ingredients">
+            <p> Ingredients: </p>
+            <ul id="recipeIngredients">
+            </ul>
+        </div>
         <form action="/random" method="post">
-            <input type="hidden" name="receiptId" th:value="${recipe.id}">
+            <input type="hidden" name="recipeId" id="recipeId">
             <label for="rating">Rate recipe:</label>
-            <div class="star-rating" id="rating" name="rating">
+            <input type="hidden" id="rating" name="rating" step="1" min="0" max="5" required><br>
+            <div class="star-rating">
                 <i class="far fa-star" data-rating="1"></i>
                 <i class="far fa-star" data-rating="2"></i>
                 <i class="far fa-star" data-rating="3"></i>
                 <i class="far fa-star" data-rating="4"></i>
                 <i class="far fa-star" data-rating="5"></i>
             </div>
-            <button type="submit">Update Rating</button>
+            <button id="ratingButton" type="submit">Update Rating</button>
         </form>
         <div class="arrows">
             <button id="prevRecipe">⬅</button>
@@ -41,5 +40,124 @@
         </div>
     </li>
 </ul>
+
+<script th:inline="javascript">
+    var recipes = /*[[${recipes}]]*/ [];
+    var ingredients = /*[[${ingredients}]]*/ [];
+    var isAuthorized = /*[[${isAuthorized}]]*/ false;
+</script>
+
+<script>
+    let currentRecipeIndex = 0;
+
+// Function to update the recipe content based on the current index
+function updateRecipe() {
+    const currentRecipe = recipes[currentRecipeIndex];
+    document.getElementById("recipeName").textContent = currentRecipe.name;
+    document.getElementById("recipeImage").src = currentRecipe.pictureLink;
+    document.getElementById("recipeCategory").textContent = currentRecipe.category;
+    document.getElementById("recipeId").value = currentRecipe.id;
+    // Update the star rating using the displayStarRating function
+    displayStarRating(currentRecipe.score);
+
+    document.getElementById("recipeInstruction").textContent = currentRecipe.instruction;
+    const ingredientsList = document.getElementById("recipeIngredients");
+    ingredientsList.innerHTML = "";
+    ingredients[currentRecipeIndex].forEach((ingredient) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span>${ingredient.name}</span>`;
+        ingredientsList.appendChild(li);
+    });
+
+}
+// Function to handle next recipe
+document.getElementById("nextRecipe").addEventListener("click", function () {
+    if (currentRecipeIndex < recipes.length - 1) {
+        currentRecipeIndex++;
+        console.log("hello");
+        updateRecipe();
+    }
+});
+
+// Function to handle previous recipe
+document.getElementById("prevRecipe").addEventListener("click", function () {
+    if (currentRecipeIndex > 0) {
+        console.log("hello");
+        currentRecipeIndex--;
+        updateRecipe();
+    }
+});
+
+function displayStarRating(rating) {
+    // Round the rating value to the nearest integer
+    const roundedRating = Math.round(rating);
+
+    // Create an HTML string for full and empty stars
+    let starsHtml = '';
+    for (let i = 0; i < roundedRating; i++) {
+        starsHtml += '<i class="fas fa-star"></i>'; // Full star
+    }
+    for (let i = roundedRating; i < 5; i++) {
+        starsHtml += '<i class="far fa-star"></i>'; // Empty star
+    }
+
+    // Update the HTML element with the star rating
+    const ratingContainer = document.querySelector('.rating-container');
+    ratingContainer.innerHTML = starsHtml;
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const starRating = document.querySelector(".star-rating");
+    const stars = starRating.querySelectorAll("i");
+
+    stars.forEach((star) => {
+        star.addEventListener("click", () => {
+            const rating = parseInt(star.getAttribute("data-rating"));
+            // Update the hidden input field with the selected rating
+            document.getElementById("rating").value = rating;
+            // Update star icons to reflect the selected rating
+            stars.forEach((s, index) => {
+                s.classList.remove("fas");
+                s.classList.remove("far");
+                if (index < rating) {
+                    s.classList.add("fas");
+                } else {
+                    s.classList.add("far");
+                }
+            });
+        });
+    });
+});
+
+$(document).ready(function () {
+    const instruction = $("#recipeInstruction");
+    const toggleButton = $("#toggleInstructionButton");
+    let instructionVisible = false;
+
+    toggleButton.click(function () {
+        if (instructionVisible) {
+            instruction.slideUp();
+            toggleButton.text("Show Instruction");
+        } else {
+            instruction.slideDown();
+            toggleButton.text("Hide Instruction");
+        }
+        instructionVisible = !instructionVisible;
+    });
+});
+
+// Initialize with the first recipe
+updateRecipe();
+console.log("!!")
+console.log(isAuthorized);
+if (!isAuthorized) {
+    var ratingButton = document.getElementById("ratingButton");
+    ratingButton.textContent = "Login to Rate!";
+}
+
+
+</script>
+
 </body>
 </html>

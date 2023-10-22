@@ -47,17 +47,23 @@ public class RandomController {
                     .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
             ingredients.add(product);
         }
+
+        Boolean isAuthorized = authenticationService.checkIfUserIsAuthorized();
         model.addAttribute("ingredients", ingredients);
         model.addAttribute("randomObject", randomRecipe);
+        model.addAttribute("isAuthorized", isAuthorized);
         return "random";
     }
     @PostMapping("/random")
-    public String updateRating(@RequestParam("receiptId") Long recipeId, @RequestParam("rating") float rating) {
+    public String updateRating(@RequestParam("recipeId") Long recipeId, @RequestParam("rating") String ratingString) {
         // Check if the user is authenticated
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        float rating = 0;
+        if (!ratingString.isEmpty()){
+            rating = Float.valueOf(ratingString);
+        }
         if (authenticationService.checkIfUserIsAuthorized()) {
             Long currentUserID = authenticationService.getAutorizedUserId();
-
+            System.out.println("recipeid " + recipeId + " rating " + rating);
 
             RecipeScore newScore = new RecipeScore();
             newScore.setRecipeId(recipeId);
@@ -68,10 +74,11 @@ public class RandomController {
             Recipe currentRecipe = recipeRepository.findRecipeById(recipeId);
             recipeService.setScore(currentRecipe);
             recipeRepository.save(currentRecipe);
+            return "redirect:/main";
         } else {
             System.out.println("nelzya");
         }
 
-        return "redirect:/random";
+        return "redirect:/user/login";
     }
 }

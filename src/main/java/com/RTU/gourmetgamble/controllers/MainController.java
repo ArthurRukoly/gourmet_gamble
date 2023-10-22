@@ -7,9 +7,7 @@ import com.RTU.gourmetgamble.repositories.RecipeProductRepository;
 import com.RTU.gourmetgamble.repositories.RecipeRepository;
 import com.RTU.gourmetgamble.requests.ProductAPI;
 import com.RTU.gourmetgamble.requests.RecipeAPI;
-import com.RTU.gourmetgamble.services.ProductServices;
-import com.RTU.gourmetgamble.services.RandomServices;
-import com.RTU.gourmetgamble.services.RecipeService;
+import com.RTU.gourmetgamble.services.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
@@ -28,7 +26,8 @@ public class MainController {
     private final RecipeService recipeService;
     private final ProductRepository productRepository;
     private final ProductServices productServices;
-    private final RecipeRepository recipeRepository;
+    private  final UserService userService;
+    private final AuthenticationService authenticationService;
     private final RecipeProductRepository recipeProductRepository;
     private final RandomServices randomServices;
 //    private final ProductAPI p = new ProductAPI();
@@ -55,7 +54,9 @@ public class MainController {
 //        r.generateRecipesFromAPIAllLetters();
 
         List<Product> productList = productRepository.getAllProducts();
+        Boolean isAuthorized = authenticationService.checkIfUserIsAuthorized();
         model.addAttribute("productList", productList);
+        model.addAttribute("isAuthorized", isAuthorized);
         return "main";
     }
 
@@ -107,7 +108,7 @@ public class MainController {
 
         redirectAttributes.addFlashAttribute("ingredients", allProducts);
         redirectAttributes.addFlashAttribute("recipes", recipes);
-
+        redirectAttributes.addFlashAttribute("isAuthorized", authenticationService.checkIfUserIsAuthorized());
         modelAndView = new ModelAndView("redirect:/pref");
         return modelAndView;
     }
