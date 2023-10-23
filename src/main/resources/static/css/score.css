@@ -1,0 +1,99 @@
+:root {
+  --primary-color: #193d3b;
+  --primary-color-dark: #0b2222;
+  --secondary-color: #E4e1b6;
+  --secondary-color-dark: #7b7a65;
+  --background-color: #cd5b43;
+}
+
+* {
+  margin: 0;
+}
+
+#redirect-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+body {
+  background: linear-gradient(to bottom, var(--background-color), #3c0505);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  font-family: 'Your Chosen Font', sans-serif;
+}
+
+h1{
+  text-align: center;
+  margin-bottom: 10px;
+  color: var(--secondary-color);
+}
+
+hr{
+  margin-bottom: 10px;
+  border-color: var(--secondary-color);
+}
+
+.container {
+  border-radius: 25px;
+  margin: 20px;
+  padding: 30px;
+  color: var(--secondary-color);
+  width: 500px;
+  background-color: var(--primary-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+}
+
+
+/* Style the buttons */
+#recipeButton {
+  margin: 2px 0px 2px 0;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 75%;
+  box-shadow: 0 0 10px rgba(0, 0, 3, 0.5);
+}
+
+#deleteButton {
+  margin: 2px 0px 2px 0;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 3, 0.5);
+}
+
+td, th {
+  text-align: center;
+}
+
+img{
+  width: 100px;
+}
+
+/* Hover effect for buttons */
+#recipeButton:hover {
+  background-color: var(--background-color);
+}
+
+#deleteButton:hover{
+  background-color: var(--background-color);
+}
+
+.button,
+button {
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}

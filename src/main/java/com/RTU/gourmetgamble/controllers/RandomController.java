@@ -69,7 +69,9 @@ public class RandomController {
             newScore.setRecipeId(recipeId);
             newScore.setUserId(currentUserID);
             newScore.setRating(rating);
-
+            if(recipeScoreRepository.findScoreBasedOnIds(recipeId, currentUserID) != null){
+                recipeScoreRepository.delete(recipeScoreRepository.findScoreBasedOnIds(recipeId, currentUserID));
+            }
             recipeScoreRepository.save(newScore);
             Recipe currentRecipe = recipeRepository.findRecipeById(recipeId);
             recipeService.setScore(currentRecipe);
