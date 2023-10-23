@@ -46,11 +46,6 @@ public class MainController {
 //        }
 
 
-//--------------------------Get Products from API-----------------------------------------------------------------------
-//        List<Product> productList = p.generateProductFromAPI();
-//        p.printProductSet(productList);
-//        productServices.saveProductListToDatabase(productList);
-
 //        r.generateRecipesFromAPIAllLetters();
 
         List<Product> productList = productRepository.getAllProducts();
