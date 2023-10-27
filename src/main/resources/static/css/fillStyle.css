@@ -103,7 +103,7 @@ select {
   color: var(--background-color);
 }
 
-/* Hover effect for buttons */
+/* Hover effect for button */
 button:hover {
   background-color: var(--background-color);
 }
@@ -119,6 +119,27 @@ button:hover {
   align-items: flex-start; /* Align buttons to the left */
 }
 
+.suggestionList{
+  display: none;
+  background-color: var(--primary-color-dark);
+  width: 80%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: var(--primary-color-dark);
+  color: var(--background-color);
+}
+
+.suggestion:hover{
+  background-color: var(--primary-color);
+}
+
+.suggestion{
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+
+}
 .button,
 button {
   transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;

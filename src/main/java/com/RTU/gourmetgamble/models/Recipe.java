@@ -27,7 +27,6 @@ public class Recipe {
 //    @OneToMany(mappedBy = "recipe")
 //    private Set<RecipeProduct> recipeProducts = new HashSet<>();
 
-
     public Recipe(String recipeName, String category, String instruction, String picture) {
         this.name = recipeName;
         this.category = category;

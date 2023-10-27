@@ -21,7 +21,7 @@
         <input type="text" id="productName" onkeyup="showSuggestions1()">
         <button onclick="addSelectedProduct(1)">Add</button>
         <div class="list">
-            <div id="suggestionList1"></div>
+            <div class = "suggestionList" id="suggestionList1"></div>
             <div id="selectedProducts">
                 <ul id="selectedProductList"></ul>
             </div>
@@ -31,7 +31,7 @@
         <input type="text" id="NotPrefProductName" onkeyup="showSuggestions2()">
         <button onclick="addSelectedProduct(0)">Add</button>
         <div class="list">
-            <div id="suggestionList2"></div>
+            <div class = "suggestionList" id="suggestionList2"></div>
             <div id="selectedNotPrefedProducts">
                 <ul id="selectedNotPrefedProductList"></ul>
             </div>
@@ -100,7 +100,18 @@ function showSuggestions1() {
     var suggestionList = document.getElementById("suggestionList1");
     suggestionList.innerHTML = "";
 
+    if (filter.trim() === "") {
+        suggestionList.style.display = "none";
+        return;
+    }
+    // Keep track of the number of displayed suggestions
+    var suggestionCount = 0;
+
     for (var i = 0; i < productList.length; i++) {
+        if (suggestionCount >= 10) {
+            break; // Break out of the loop if 10 suggestions have been displayed
+        }
+
         var product = productList[i].name.toLowerCase();
         if (product.startsWith(filter)) {
             var suggestionItem = document.createElement("div");
@@ -113,9 +124,18 @@ function showSuggestions1() {
                 suggestionList.innerHTML = "";
             });
             suggestionList.appendChild(suggestionItem);
+
+            suggestionCount++; // Increment the count of displayed suggestions
         }
     }
+
+    if (suggestionCount === 0) {
+        suggestionList.style.display = "none";
+    } else {
+        suggestionList.style.display = "block"; // or "inline-block" as needed
+    }
 }
+
 
 
 function showSuggestions2() {
@@ -123,8 +143,18 @@ function showSuggestions2() {
     var filter = input.value.toLowerCase();
     var suggestionList = document.getElementById("suggestionList2");
     suggestionList.innerHTML = "";
+    var suggestionCount = 0;
+
+
+    if (filter.trim() === "") {
+        suggestionList.style.display = "none";
+        return;
+    }
 
     for (var i = 0; i < productList.length; i++) {
+         if (suggestionCount >= 10) {
+            break; // Break out of the loop if 10 suggestions have been displayed
+        }
         var product = productList[i].name.toLowerCase();
         if (product.startsWith(filter)) {
             var suggestionItem = document.createElement("div");
@@ -137,7 +167,14 @@ function showSuggestions2() {
                 suggestionList.innerHTML = "";
             });
             suggestionList.appendChild(suggestionItem);
+            suggestionCount++;
         }
+    }
+
+    if (suggestionCount === 0) {
+        suggestionList.style.display = "none";
+    } else {
+        suggestionList.style.display = "block"; // or "inline-block" as needed
     }
 }
 
