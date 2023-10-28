@@ -10,7 +10,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, var(--background-color), #3c0505);
+    background: linear-gradient(to bottom, var(--secondary-color), #cd5b43);
     display: flex;
     justify-content: center;
     align-items: center;

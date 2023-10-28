@@ -30,7 +30,7 @@ button {
 }
 
 body {
-  background: linear-gradient(to bottom, var(--background-color), #3c0505);
+  background: linear-gradient(to bottom, var(--secondary-color), #cd5b43);
   display: flex;
   justify-content: center;
   align-items: center;

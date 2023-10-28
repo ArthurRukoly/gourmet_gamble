@@ -105,7 +105,7 @@ public class UserController {
             return "registration";
         }
         System.out.println("New user registred with name:" + name + " and email " + email);
-        return "redirect:/main/user/login";
+        return "redirect:/user/login";
 
     }
 
