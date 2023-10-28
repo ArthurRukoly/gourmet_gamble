@@ -36,13 +36,11 @@ public class ExactRecipeController {
         Recipe recipe = recipeRepository.findRecipeById(id);
         List<Product> ingredients = productServices.getProductsFromIds(
                                     recipeProductRepository.findProductIDByRecipeID(id));
-        System.out.println("------------------------------------------");
-        for (Product p: ingredients) {
-            System.out.println("ingred = " + p);
-        }
-        System.out.println("------------------------------------------");
+        List<String> meassures = recipeProductRepository.findMeassureByRecipeID(id);
+
         model.addAttribute("recipe", recipe);
         model.addAttribute("ingredients", ingredients);
+        model.addAttribute("measures", meassures);
         model.addAttribute("isAuthorized", authenticationService.checkIfUserIsAuthorized());
         return "exactRecipe"; // Return the view name
     }

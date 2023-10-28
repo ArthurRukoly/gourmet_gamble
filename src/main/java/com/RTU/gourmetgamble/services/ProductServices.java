@@ -2,11 +2,9 @@ package com.RTU.gourmetgamble.services;
 
 import com.RTU.gourmetgamble.models.Product;
 import com.RTU.gourmetgamble.repositories.ProductRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ public class ProductServices {
 
     private final ProductRepository productRepository;
 
-    public List<Long> getProductsIds(String[] arrayWithProductNames){
+    public List<Long> getProductsIds(List<String> arrayWithProductNames){
         List<Long> productsIds = new ArrayList<>();
         for (String s : arrayWithProductNames) {
             if (s.length() > 1) {
@@ -121,6 +119,20 @@ public class ProductServices {
         for (Product product : list) {
             productRepository.save(product);
         }
+    }
+
+    public List<String> parseStringToList(String input) {
+        // Remove the brackets and split the string by commas
+        String[] items = input.replaceAll("[\\[\\]\"]", "").split(",");
+
+        List<String> itemList = new ArrayList<>();
+
+        // Trim each item to remove leading/trailing spaces and add to the list
+        for (String item : items) {
+            itemList.add(item.trim());
+        }
+
+        return itemList;
     }
 
 }

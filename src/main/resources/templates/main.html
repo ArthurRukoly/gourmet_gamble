@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Fill Recipe's requirements</title>
     <link type="text/css" th:href = "@{/css/fillStyle.css}" rel="stylesheet">
+    <link rel="icon" th:href="@{/pictures/icon.png}" type="image/x-icon">
     <script src="https://kit.fontawesome.com/e89c536697.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -59,27 +60,6 @@
                 </select>
                 <label for="foodCategory"></label>
                 <br>
-                <label for="notPrefFoodCategory">Select a Food Category:</label>
-                <select id="notPrefFoodCategory" name="notPrefFoodCategory">
-                    <option value="None">None</option>
-                    <option value="Dessert">Dessert</option>
-                    <option value="Chicken">Chicken</option>
-                    <option value="Beef">Beef</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Starter">Starter</option>
-                    <option value="Miscellaneous">Miscellaneous</option>
-                    <option value="Side">Side</option>
-                    <option value="Seafood">Seafood</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Pork">Pork</option>
-                    <option value="Pasta">Pasta</option>
-                    <option value="Lamb">Lamb</option>
-                    <option value="Goat">Goat</option>
-                    <option value="Vegan">Vegan</option>
-                </select>
-                <label for="notPrefFoodCategory"></label>
-
-                <!-- ... other form elements ... -->
                 <input type="hidden" id="selectedProductsInput" name="selectedProducts">
                 <input type="hidden" id="selectedNotPrefProductsInput" name="notPrefSelectedProducts">
                 <button type="submit">Submit Selected Products</button>

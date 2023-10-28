@@ -14,5 +14,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     @Query("SELECT r FROM Recipe r WHERE r.category = :category")
     List<Recipe> findRecipesByCategory(@Param("category") String category);
 
+    @Query("SELECT r FROM Recipe r ORDER BY RANDOM() LIMIT 10")
+    List<Recipe> findRandomRecipes();
+
     Recipe findRecipeById(Long id);
+
 }

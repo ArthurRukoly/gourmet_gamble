@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Random Recipes</title>
+    <title>Recipe Page</title>
     <link type="text/css" th:href = "@{/css/productPage.css}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e89c536697.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <link rel="icon" th:href="@{/pictures/icon.png}" type="image/x-icon">
 </head>
 <body>
 <ul class="container">
@@ -44,13 +44,13 @@
 <script th:inline="javascript">
     var recipes = /*[[${recipes}]]*/ [];
     var ingredients = /*[[${ingredients}]]*/ [];
+    var measures = /*[[${measures}]]*/ [];
     var isAuthorized = /*[[${isAuthorized}]]*/ false;
 </script>
 
 <script>
     let currentRecipeIndex = 0;
 
-// Function to update the recipe content based on the current index
 function updateRecipe() {
     const currentRecipe = recipes[currentRecipeIndex];
     document.getElementById("recipeName").textContent = currentRecipe.name;
@@ -63,13 +63,14 @@ function updateRecipe() {
     document.getElementById("recipeInstruction").textContent = currentRecipe.instruction;
     const ingredientsList = document.getElementById("recipeIngredients");
     ingredientsList.innerHTML = "";
-    ingredients[currentRecipeIndex].forEach((ingredient) => {
+
+    ingredients[currentRecipeIndex].forEach((ingredient, index) => {
         const li = document.createElement("li");
-        li.innerHTML = `<span>${ingredient.name}</span>`;
+        li.innerHTML = `<span>${ingredient.name} (${measures[currentRecipeIndex][index]})</span>`;
         ingredientsList.appendChild(li);
     });
-
 }
+
 // Function to handle next recipe
 document.getElementById("nextRecipe").addEventListener("click", function () {
     if (currentRecipeIndex < recipes.length - 1) {
