@@ -122,8 +122,8 @@ public class MainController {
 //      -----------------------------------------Filer Preferred Category-----------------------------------------------
 
         if (!Objects.equals(prefFoodCategory, "None")){
-            prefSelectedCategoryRecipes = recipeRepository.findRecipesByCategory(prefFoodCategory);
-            if (recipes.isEmpty()) {
+            if (prefSelectedProductsNames.get(0).isEmpty()) {
+                prefSelectedCategoryRecipes = recipeRepository.findRecipesByCategory(prefFoodCategory);
                 recipes = prefSelectedCategoryRecipes;
             } else {
                 recipes = recipeService.selectByCategory(recipes, prefFoodCategory);
@@ -133,7 +133,7 @@ public class MainController {
 //      -----------------------------------------Filter Not Preferred Selected Products--------------------------------------
 
         List<String> notPrefFoodCategoryNames = productServices.parseStringToList(notPrefSelectedProducts);
-        if (recipes.isEmpty()) {
+        if (prefSelectedProductsNames.get(0).isEmpty() && Objects.equals(prefFoodCategory, "None")) {
             if (!notPrefFoodCategoryNames.get(0).isEmpty()) {
                 List<Long> productsIds = productServices.getProductsIds(notPrefFoodCategoryNames);
                 notPrefSelectedProductsRecipes = recipeService.getRecipeByProductNegativePreferences(productsIds);
